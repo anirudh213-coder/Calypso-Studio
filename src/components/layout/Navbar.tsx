@@ -1,57 +1,17 @@
-import { useEffect, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useState } from "react";
 import { navItems } from "../../data/content";
-
-gsap.registerPlugin(ScrollToPlugin);
+import { useScrollObserver, useScrollTo } from "../../hooks";
 
 export default function Navbar() {
-  const [active, setActive] = useState("home");
   const [isOpen, setIsOpen] = useState(false);
+  
+  // Use custom hooks for scroll logic
+  const active = useScrollObserver(navItems.map(item => item.id));
+  const { scrollTo } = useScrollTo();
 
-  useEffect(() => {
-    const sections = navItems
-      .map(({ id }) => document.getElementById(id))
-      .filter(Boolean) as HTMLElement[];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (a, b) => b.intersectionRatio - a.intersectionRatio,
-          )[0];
-
-        if (visible) {
-          setActive(visible.target.id);
-        }
-      },
-      {
-        rootMargin: "-35% 0px -55% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, []);
-
-  const go = (id: string) => {
-    const el = document.getElementById(id);
-
-    if (!el) return;
-
+  const handleNavClick = (id: string) => {
     setIsOpen(false);
-
-    gsap.to(window, {
-      duration: 1.25,
-      scrollTo: {
-        y: el,
-        offsetY: 0,
-      },
-      ease: "power4.inOut",
-    });
+    scrollTo(id);
   };
 
   return (
@@ -149,7 +109,7 @@ export default function Navbar() {
                 return (
                   <button
                     key={item.id}
-                    onClick={() => go(item.id)}
+                    onClick={() => handleNavClick(item.id)}
                     data-cursor="interactive"
                     className={`
                       group/link
@@ -388,7 +348,7 @@ export default function Navbar() {
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => go(item.id)}
+                  onClick={() => handleNavClick(item.id)}
                   data-cursor="interactive"
                   className={`
                     group/mobile-link

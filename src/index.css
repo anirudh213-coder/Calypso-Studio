@@ -1,17 +1,108 @@
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root { font-family: 'Manrope', sans-serif; background: #080808; color: #f5f2eb; color-scheme: dark; }
-* { box-sizing: border-box; }
-html { scroll-behavior: auto; background: #080808; }
-body { margin: 0; min-width: 320px; overflow-x: hidden; background: transparent; }
-button, a { -webkit-tap-highlight-color: transparent; }
-::selection { background: #f5f2eb; color: #080808; }
+:root {
+  font-family: 'Manrope', sans-serif;
+  background: #080808;
+  color: #f5f2eb;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  background: #080808;
+  cursor: none;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background: transparent;
+  cursor: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  cursor: none;
+}
+
+::selection {
+  background: #f5f2eb;
+  color: #080808;
+}
+
+/* ==========================================================
+   CUSTOM CURSOR
+========================================================== */
+
+.cursor-default-shape,
+.cursor-camera-shape,
+.cursor-pin-shape {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursor-default-shape {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: white;
+  mix-blend-mode: difference;
+}
+
+.cursor-camera-shape,
+.cursor-pin-shape {
+  color: white;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
+  mix-blend-mode: difference;
+}
+
+/*
+ * Only these two cursor states replace the default cursor.
+ */
+
+[data-cursor-type='camera'] .cursor-default-shape,
+[data-cursor-type='pin'] .cursor-default-shape {
+  opacity: 0;
+}
+
+[data-cursor-type='camera'] .cursor-camera-shape,
+[data-cursor-type='pin'] .cursor-pin-shape {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ==========================================================
+   CUSTOM UTILITIES
+========================================================== */
 
 @layer utilities {
-  .font-serif-display { font-family: 'Instrument Serif', serif; }
-  .font-mono-ui { font-family: 'DM Mono', monospace; }
-  .text-balance { text-wrap: balance; }
+  .font-serif-display {
+    font-family: 'Instrument Serif', serif;
+  }
+
+  .font-mono-ui {
+    font-family: 'DM Mono', monospace;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
 }

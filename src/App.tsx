@@ -7,30 +7,26 @@ import PhilosophySection from "./components/sections/PhilosophySection";
 import ArchiveSection from "./components/sections/ArchiveSection";
 import ConnectSection from "./components/sections/ConnectSection";
 import Marquee from "./components/common/Marquee";
+import { MainLayout } from "./components/layout/MainLayout";
 
 export default function App() {
-return ( <div className="relative min-h-screen bg-black/10">
-{/* Layer 0 */} <BackgroundVideo />
+  return (
+    <MainLayout>
+      {/* Background layer */}
+      <BackgroundVideo />
 
+      {/* Navigation & Cursor */}
+      <Navbar />
+      <CustomCursor />
 
-  {/* Layer 3 */}
-  <Navbar />
-  <CustomCursor />
-
-  {/* Layer 1 */}
-  <WorkingArea>
-    <HeroSection />
-    <PhilosophySection />
-
-    <Marquee />
-
-    <ArchiveSection />
-    <ConnectSection />
-  </WorkingArea>
-</div>
-
-
-
-
-);
+      {/* Content wrapper */}
+      <WorkingArea>
+        <HeroSection />
+        <PhilosophySection />
+        <Marquee />
+        <ArchiveSection />
+        <ConnectSection />
+      </WorkingArea>
+    </MainLayout>
+  );
 }

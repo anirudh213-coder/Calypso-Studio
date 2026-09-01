@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Heading, Text, Container } from "../base";
 import { projects } from "../../data/content";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -187,14 +188,35 @@ export default function ArchiveSection() {
     <section
       id="archive"
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-black text-white md:mt-4"
+      className="
+        relative
+        min-h-[calc(100dvh+2rem)]
+        overflow-hidden
+        bg-black
+        text-white
+
+        pt-6
+
+        xs:pt-8
+        sm:pt-10
+
+        md:min-h-dvh
+        md:pt-0
+        md:mt-4
+      "
     >
       {/* ======================================================
           BACKGROUND VIDEO
       ======================================================= */}
 
       <div
-        className="absolute inset-0 z-0 cursor-pointer"
+        data-cursor="camera"
+        className="
+          absolute
+          inset-0
+          z-0
+          cursor-none
+        "
         onClick={changeProject}
         onKeyDown={handleKeyDown}
         role="button"
@@ -205,7 +227,11 @@ export default function ArchiveSection() {
           ref={videoRef}
           key={activeProject.video}
           src={activeProject.video}
-          className="h-full w-full object-cover"
+          className="
+            h-full
+            w-full
+            object-cover
+          "
           autoPlay
           muted
           loop
@@ -222,12 +248,56 @@ export default function ArchiveSection() {
           SELECTED WORK — TOP LEFT
       ======================================================= */}
 
-      <div className="pointer-events-none absolute left-5 top-8 z-20 md:left-8 md:top-10">
-        <div className="archive-label font-mono-ui text-[9px] uppercase tracking-[.3em] text-white/60">
-          Archive
-        </div>
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-0
+          top-0
+          z-20
+          w-full
+          px-4
+          pt-6
 
-        <h2 className="archive-title mt-4 text-[clamp(4rem,8vw,8rem)] font-medium leading-[0.82] tracking-[-0.07em]">
+          xs:px-5
+          xs:pt-8
+
+          sm:px-6
+          sm:pt-10
+
+          md:px-8
+          md:pt-8
+
+          lg:px-10
+          lg:pt-10
+
+          xl:px-12
+          xl:pt-12
+
+          2xl:px-16
+        "
+      >
+        <h2
+          className="
+            archive-title
+            m-0
+            w-full
+            max-w-none
+
+            text-[clamp(4rem,17vw,8rem)]
+            font-medium
+            leading-[0.82]
+            tracking-[-0.07em]
+
+            xs:text-[clamp(4.5rem,16vw,9rem)]
+            sm:text-[clamp(5rem,15vw,10rem)]
+            md:text-[clamp(6rem,13vw,11rem)]
+            lg:text-[clamp(7rem,11vw,13rem)]
+            xl:text-[clamp(8rem,10vw,15rem)]
+            2xl:text-[clamp(9rem,9vw,17rem)]
+            3xl:text-[clamp(10rem,8vw,19rem)]
+          "
+        >
           Selected
           <br />
           work
@@ -240,21 +310,101 @@ export default function ArchiveSection() {
 
       <div
         ref={projectInfoRef}
-        className="archive-project-info pointer-events-none absolute bottom-8 left-5 z-20 text-left md:bottom-10 md:left-8"
+        className="
+          archive-project-info
+          pointer-events-none
+          absolute
+          bottom-0
+          left-0
+          z-20
+          w-full
+          px-4
+          pb-8
+          text-left
+
+          xs:px-5
+          xs:pb-10
+
+          sm:px-6
+          sm:pb-10
+
+          md:px-8
+          md:pb-8
+
+          lg:px-10
+          lg:pb-10
+
+          xl:px-12
+          xl:pb-12
+
+          2xl:px-16
+          2xl:pb-14
+        "
       >
-        <div className="mb-3 font-mono-ui text-[9px] uppercase tracking-[.2em] text-white/50">
+        <div
+          className="
+            mb-3
+            font-mono-ui
+            text-[8px]
+            uppercase
+            tracking-[.2em]
+            text-white/50
+
+            sm:text-[9px]
+            lg:text-[10px]
+          "
+        >
           {activeProject.year}
         </div>
 
-        <h3 className="text-[clamp(2.5rem,5vw,5.5rem)] leading-none tracking-[-0.06em]">
+        <h3
+          className="
+            w-full
+            max-w-none
+            text-[clamp(2.5rem,8vw,5.5rem)]
+            leading-none
+            tracking-[-0.06em]
+
+            xs:text-[clamp(2.75rem,8vw,6rem)]
+            sm:text-[clamp(3rem,7vw,6.5rem)]
+            md:text-[clamp(3.5rem,6vw,7rem)]
+            lg:text-[clamp(4rem,5vw,8rem)]
+            xl:text-[clamp(4.5rem,4.5vw,9rem)]
+            2xl:text-[clamp(5rem,4vw,10rem)]
+          "
+        >
           {activeProject.title}
         </h3>
 
-        <div className="mt-3 font-mono-ui text-[9px] uppercase tracking-[.2em] text-white/50">
+        <div
+          className="
+            mt-3
+            font-mono-ui
+            text-[8px]
+            uppercase
+            tracking-[.2em]
+            text-white/50
+
+            sm:text-[9px]
+            lg:text-[10px]
+          "
+        >
           {activeProject.category}
         </div>
 
-        <div className="mt-6 font-mono-ui text-[8px] uppercase tracking-[.25em] text-white/35">
+        <div
+          className="
+            mt-5
+            font-mono-ui
+            text-[7px]
+            uppercase
+            tracking-[.25em]
+            text-white/35
+
+            sm:text-[8px]
+            md:mt-6
+          "
+        >
           Click video For Next project
         </div>
       </div>

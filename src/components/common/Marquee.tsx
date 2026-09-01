@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
+import { useEffect } from 'react';
 
 const services = [
   'DIGITAL DESIGN',

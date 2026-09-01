@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useParallax } from "../../hooks";
+import { Heading, Text } from "../base";
 import { philosophyLines } from "../../data/content";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,33 +21,17 @@ export default function PhilosophySection() {
   const ref = useRef<HTMLDivElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
 
+  // Use parallax hook for background effect
+  useParallax(ref, parallaxRef, {
+    yPercent: [-18, 18],
+    scrub: 1.2,
+    start: "top bottom",
+    end: "bottom top",
+  });
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /*
-        Local background parallax.
-        The image layer is oversized so it can move
-        vertically while the section scrolls normally.
-      */
-      gsap.fromTo(
-        parallaxRef.current,
-        {
-          yPercent: -18,
-        },
-        {
-          yPercent: 18,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        },
-      );
-
-      /*
-        Philosophy typography reveal.
-      */
+      // Typography reveal animation
       gsap.from(".ph-line", {
         y: 80,
         opacity: 0,
@@ -69,16 +55,43 @@ export default function PhilosophySection() {
       ref={ref}
       className="
         relative
-        min-h-screen
+        min-h-dvh
         overflow-hidden
-        px-05
-        py-25
-        md:px-8
-        md:py-56
+
+        px-4
+        pt-16
+        pb-28
         mb-4
+
+        xs:px-5
+        xs:pt-20
+        xs:pb-36
+
+        sm:px-6
+        sm:pt-24
+        sm:pb-44
+
+        md:px-8
+        md:pt-40
+        md:pb-48
+
+        lg:px-10
+        lg:pt-48
+        lg:pb-56
+
+        xl:px-12
+        xl:pt-56
+        xl:pb-64
+
+        2xl:px-16
+        2xl:pt-64
+        2xl:pb-72
+
+        3xl:px-20
       "
     >
       {/* Local split-image parallax background. */}
+
       <div
         ref={parallaxRef}
         aria-hidden="true"
@@ -93,6 +106,7 @@ export default function PhilosophySection() {
         "
       >
         {/* Three vertical image panels. */}
+
         <div className="absolute inset-0 flex gap-[2px]">
           {philosophyImages.map((image, index) => (
             <div
@@ -118,9 +132,11 @@ export default function PhilosophySection() {
               />
 
               {/* Individual image darkness. */}
+
               <div className="absolute inset-0 bg-black/45" />
 
               {/* Subtle Calypso peach tone in the center panel. */}
+
               {index === 1 && (
                 <div className="absolute inset-0 bg-[#F3B39D]/10 mix-blend-screen" />
               )}
@@ -129,9 +145,11 @@ export default function PhilosophySection() {
         </div>
 
         {/* Overall dark treatment. */}
+
         <div className="absolute inset-0 bg-black/20" />
 
         {/* Soft central vignette. */}
+
         <div
           className="
             absolute
@@ -142,32 +160,24 @@ export default function PhilosophySection() {
       </div>
 
       {/* Philosophy content stays in normal document flow. */}
-      <div className="relative z-10">
-        <div className="mb-12 font-mono-ui text-[9px] uppercase tracking-[.3em] text-white/60">
-          01 / Philosophy
-        </div>
 
-        <div
-          className="
-            max-w-6xl
-            text-[11vw]
-            leading-[.86]
-            tracking-[-.065em]
-            text-white
-            md:text-[8.7vw]
-          "
-        >
+      <div className="relative z-10 flex min-h-[70dvh] w-full flex-col justify-between">
+        <div className="w-full max-w-none text-[clamp(3.75rem,11vw,7rem)] leading-[1.02] tracking-[-0.065em] text-white xs:text-[clamp(4rem,10.5vw,8rem)] sm:text-[clamp(4.5rem,10vw,9rem)] md:text-[clamp(5rem,8.7vw,10rem)] md:leading-[0.94] lg:text-[clamp(6rem,8vw,12rem)] lg:leading-[0.90] xl:text-[clamp(7rem,7.5vw,14rem)] xl:leading-[0.88] 2xl:text-[clamp(8rem,7vw,16rem)] 2xl:leading-[0.86] 3xl:text-[clamp(9rem,6.5vw,18rem)] 3xl:leading-[0.84]">
           {philosophyLines.map((line, i) => (
             <div
-              key={line}
-              className={`ph-line ${
-                i === 2 ? "font-serif-display italic" : ""
-              }`}
+              key={`${line}-${i}`}
+              className={`ph-line ${i === 2 ? "font-serif-display italic" : ""} ${i < philosophyLines.length - 1 ? "mb-[0.18em] xs:mb-[0.22em] sm:mb-[0.25em] md:mb-[0.16em] lg:mb-[0.14em]" : ""}`}
             >
               {line}
             </div>
           ))}
         </div>
+
+        {/* Breathing space */}
+        <div
+          aria-hidden="true"
+          className="h-20 xs:h-24 sm:h-28 md:h-20 lg:h-24 xl:h-28"
+        />
       </div>
     </section>
   );
