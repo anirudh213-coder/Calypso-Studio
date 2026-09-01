@@ -1,69 +1,147 @@
-# CALYPSO — High-End Digital Design Studio
+# CALYPSO — Digital Design Studio
 
-Native React + Vite + TypeScript + Tailwind + GSAP + Three.js implementation of the layered Calypso concept.
+A high-end digital design studio concept built with native React, Vite, TypeScript, Tailwind CSS, GSAP, and Three.js.
+
+The project combines editorial typography, motion, interactive media, custom cursor interactions, and experimental visual effects into a single responsive experience.
 
 ## 🚀 Quick Start
 
+Install the dependencies:
+
 ```bash
 npm install
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
 
-Place `background-loop.mp4` in `public/`.
+### Required Media
 
----
+Place the following file in the `public/` directory:
 
-## 🏗️ NEW: Scalable Component Architecture
+```text
+public/
+└── background-loop.mp4
+```
 
-**Status:**
-- ✅ Infrastructure created (components, hooks, utilities)
-- ✅ Navbar refactored (450 → 50 lines)
-- ❌ Sections not yet refactored (still large)
+## 🏗️ Component Architecture
 
-### What to Read
+The project follows a reusable component architecture designed to keep UI primitives, composite patterns, layout structures, animation logic, and page sections separated.
 
-→ **[ARCHITECTURE.md](ARCHITECTURE.md)** - Explains the new component system
+### Structure
 
-That's the only file you need. It shows:
-- What was created
-- How to use it
-- Before/after examples
-- What still needs to be done
+```text
+src/
+├── components/
+│   ├── base/
+│   ├── composite/
+│   ├── layout/
+│   └── sections/
+│
+├── hooks/
+│
+└── utils/
+```
 
-### What Was Created
+The architecture documentation provides an overview of the component hierarchy, composition patterns, reusable hooks, and refactoring guidelines.
 
-**15 Reusable Components:**
-- 5 base components (Button, Text, Heading, Icon, Container)
-- 4 composite components (IconButton, ContactItem, Card, AnimatedText)
-- 2 layout components (MainLayout, Section)
+See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
-**4 Custom Hooks:**
-- useScrollObserver - Track active section
-- useScrollTo - Smooth scroll navigation
-- useParallax - Parallax effects
-- useMarqueeAnimation - Continuous scroll
+### Reusable Components
 
-**Utilities:**
-- helpers.ts - Pure utility functions
-- constants.ts - Shared constants
+The current component system includes:
 
-### What Still Needs Refactoring
+**Base components**
 
-Your section components are still large (250-320+ lines each):
-- HeroSection ❌
-- PhilosophySection ❌
-- ArchiveSection ❌
-- ConnectSection ❌
+* Button
+* Text
+* Heading
+* Icon
+* Container
 
-These need to be refactored to USE the new components to become readable and maintainable.
+**Composite components**
 
----
+* IconButton
+* ContactItem
+* Card
+* AnimatedText
 
-## 📚 Original Architecture
+**Layout components**
 
-- Layer 0 — `BackgroundVideo`: fixed cinematic video.
-- Layer 1 — `WorkingArea`: normal scroll content.
-- Layer 2 — `LiquidImage`: native Three.js + GLSL displacement.
-- Layer 3 — `Navbar`, `CustomCursor`, magnets.
+* MainLayout
+* Section
+* Navbar
 
-The image shader is intentionally lightweight: procedural noise + sinusoidal displacement + mouse influence. It is a foundation for a stronger fluid simulation later.
+### Shared Hooks
+
+Reusable interaction and animation logic is organized into custom hooks:
+
+* `useScrollObserver` — observes active sections
+* `useScrollTo` — provides smooth section navigation
+* `useParallax` — handles parallax movement
+* `useMarqueeAnimation` — manages continuous marquee animations
+
+### Utilities
+
+```text
+src/utils/
+├── helpers.ts
+└── constants.ts
+```
+
+These modules contain shared helper functions and application-level constants.
+
+## 📐 Original Visual Architecture
+
+The experience is organized into several visual and interaction layers:
+
+### Layer 0 — Background
+
+A fixed cinematic background video establishes the visual foundation of the experience.
+
+### Layer 1 — Working Area
+
+The primary page content and sections occupy the normal document flow and provide the main scroll experience.
+
+### Layer 2 — Liquid Image
+
+A native Three.js and GLSL-based image treatment introduces interactive displacement and fluid-like movement.
+
+The shader currently uses lightweight procedural noise, sinusoidal displacement, and mouse interaction. It is intentionally designed as a foundation that can be expanded into a more advanced fluid simulation.
+
+### Layer 3 — Interaction Systems
+
+Global interface elements sit above the primary content, including:
+
+* Navigation
+* Custom cursor
+* Magnetic interactions
+* Motion and hover effects
+
+## 🛠️ Technology
+
+| Technology   | Purpose                           |
+| ------------ | --------------------------------- |
+| React        | UI and component architecture     |
+| Vite         | Development and build tooling     |
+| TypeScript   | Type safety                       |
+| Tailwind CSS | Responsive styling                |
+| GSAP         | Animation and scroll-based motion |
+| Three.js     | Interactive visual effects        |
+| GLSL         | Custom shader effects             |
+
+## 📌 Development Principles
+
+The project is designed around:
+
+* Reusable components
+* Clear separation of concerns
+* Responsive behavior across screen sizes
+* Lightweight animation and shader implementations
+* Progressive enhancement of interactive effects
+* Type-safe development with TypeScript
+
+The component architecture can be extended as new sections, interactions, and visual systems are introduced.
